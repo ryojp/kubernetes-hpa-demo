@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-cpu-intensive
+  labels:
+    app: go-cpu-intensive
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: go-cpu-intensive
+  template:
+    metadata:
+      labels:
+        app: go-cpu-intensive
+    spec:
+      containers:
+      - name: go-cpu-intensive
+        image: ryojpn/go-cpu-intensive:arm64
+        resources:
+          limits:
+            cpu: "1000m"
+            memory: "500Mi"
+          requests:
+            cpu: "500m"
+            memory: "250Mi"
+        ports:
+        - containerPort: 8080
