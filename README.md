@@ -1,8 +1,24 @@
 # Kubernetes HPA Demo
 
-<img width="1257" alt="hpa_screenshot" src="https://github.com/ryojp/kubernetes-hpa-demo/assets/48583318/e93c6329-2850-4f2a-b760-1b6168b0c5d7">
+This repo is composed of two demonstrations.
+1. [HPA with CPU metrics](./part1_cpu_metrics/README.md)
 
-Tutorial available at https://ryo-koike.com/blog/k8s-hpa-handson
+## Setup
+
+1. Deploy Istio
+```sh
+kubectl apply -f istio-demo.yml
+```
+
+2. Deploy Istio Addons
+```sh
+kubectl apply -f addons/
+```
+
+2. Deploy workloads
+```sh
+kubectl apply -f workloads/
+```
 
 ## How to create a docker image with multiple platform?
 1. Create a builder
