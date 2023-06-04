@@ -18,10 +18,93 @@ kubectl apply -f istio-demo.yml
 kubectl apply -f addons/
 ```
 
-2. Deploy workloads
+3. Deploy Prometheus Adapter (before this, make sure to install [helmfile](https://github.com/helmfile/helmfile) and run `helmfile init` to install `helm-diff` plugin):
 ```sh
-kubectl apply -f workloads/
+helfile apply
 ```
+
+4. Deploy the workload and Ingress Gateway in namespace `demo` with Istio injection:
+```sh
+kubectl apply -f demo-namespace.yml
+kubectl apply -f go-cpu-intensive.yml
+kubectl apply -f istio-gateway.yml
+```
+
+<details>
+<summary> Verify custom metrics can be fetched from Kubernetes API </summary>
+
+1. `requests_per_second`
+```sh
+kubectl get --raw /apis/custom.metrics.k8s.io/v1beta1/namespaces/demo/services/go-cpu-intensive/requests_per_second
+```
+
+The output should look like:
+```json
+{
+  "kind": "MetricValueList",
+  "apiVersion": "custom.metrics.k8s.io/v1beta1",
+  "metadata": {},
+  "items": [
+    {
+      "describedObject": {
+        "kind": "Service",
+        "namespace": "demo",
+        "name": "go-cpu-intensive",
+        "apiVersion": "/v1"
+      },
+      "metricName": "requests_per_second",
+      "timestamp": "2023-06-04T02:26:01Z",
+      "value": "3171m",
+      "selector": null
+    }
+  ]
+}
+```
+
+2. `request_duration_seconds_90tile`
+```sh
+kubectl get --raw /apis/custom.metrics.k8s.io/v1beta1/namespaces/demo/deployments/go-cpu-intensive/request_duration_seconds_90tile
+```
+
+The output should look like:
+```json
+{
+  "kind": "MetricValueList",
+  "apiVersion": "custom.metrics.k8s.io/v1beta1",
+  "metadata": {},
+  "items": [
+    {
+      "describedObject": {
+        "kind": "Deployment",
+        "namespace": "demo",
+        "name": "go-cpu-intensive",
+        "apiVersion": "apps/v1"
+      },
+      "metricName": "request_duration_seconds_90tile",
+      "timestamp": "2023-06-04T02:25:15Z",
+      "value": "0",
+      "selector": null
+    }
+  ]
+}
+```
+
+</details>
+
+
+## Experiment
+
+1. Watch changes in HPA:
+```sh
+kubectl -n demo get hpa -w
+```
+
+2. In another terminal, run a loadtest
+```sh
+k6 run -e URL=http://localhost/ ../loadtest.js
+```
+Make sure to [adjust the URL](https://github.com/ryojp/istio-observability#curl-localhost-hangs) if you get 404 error.
+
 
 ## How did I generate `istio-demo.yml`?
 

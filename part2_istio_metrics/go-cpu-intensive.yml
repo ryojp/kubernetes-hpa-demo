@@ -53,7 +53,7 @@ spec:
         name: request_duration_seconds_90tile
       target:
         type: Value
-        value: 200m
+        value: 100m
 ---
 apiVersion: apps/v1
 kind: Deployment
