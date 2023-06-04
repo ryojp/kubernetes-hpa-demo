@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: go-cpu-intensive
-        image: ryojpn/go-cpu-intensive:arm64
+        image: ryojpn/go-cpu-intensive
         resources:
           limits:
             cpu: "1000m"
