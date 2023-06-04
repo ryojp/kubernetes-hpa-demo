@@ -1,0 +1,6 @@
+releases:
+- name: prometheus-adapter
+  namespace: monitoring
+  chart: prometheus-community/prometheus-adapter
+  values:
+  - ./values.yml

@@ -1,0 +1,2 @@
+helmfiles:
+- ./prometheus-adapter/helmfile.yml
