@@ -1,2 +1,3 @@
 helmfiles:
 - ./prometheus-adapter/helmfile.yml
+- ./kube-state-metrics/helmfile.yml
