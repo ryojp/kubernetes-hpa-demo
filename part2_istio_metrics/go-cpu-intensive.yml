@@ -26,12 +26,12 @@ spec:
   minReplicas: 1
   maxReplicas: 10
   metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: 50
+  # - type: Resource
+  #   resource:
+  #     name: cpu
+  #     target:
+  #       type: Utilization
+  #       averageUtilization: 50
   - type: Object
     object:
       describedObject:
@@ -42,7 +42,7 @@ spec:
         name: requests_per_second
       target:
         type: AverageValue # divide metric value by the number of pods
-        averageValue: "10" # or k8s-style "10000m"
+        averageValue: "50"
   - type: Object
     object:
       describedObject:
@@ -53,7 +53,7 @@ spec:
         name: request_duration_seconds_90tile
       target:
         type: Value
-        value: 100m
+        value: 300m
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -77,10 +77,10 @@ spec:
         image: ryojpn/go-cpu-intensive
         resources:
           limits:
-            cpu: 1000m
-            memory: 500Mi
+            cpu: 500m
+            memory: 128Mi
           requests:
             cpu: 500m
-            memory: 250Mi
+            memory: 128Mi
         ports:
         - containerPort: 8080
