@@ -2,7 +2,8 @@
 
 ## Tested Environment
 
-* microk8s v1.26.4
+* Ubuntu 22.04
+* MicroK8s v1.26.4
 * Kubernetes v1.26.4
 
 
@@ -104,6 +105,16 @@ kubectl -n demo get hpa -w
 k6 run -e URL=http://localhost/ ../loadtest.js
 ```
 Make sure to [adjust the URL](https://github.com/ryojp/istio-observability#curl-localhost-hangs) if you get 404 error.
+
+3. Open Grafana and [import dashboard](https://grafana.com/docs/grafana/latest/dashboards/manage-dashboards/#import-a-dashboard)
+```sh
+# Port-forward Grafana on localhost:3001
+kubectl -n istio-system port-forward svc/grafana 3001:3000
+```
+Copy the entire JSON file of [HPA Dashboard](./hpa_dashboard.json) and paste it on Grafana(http://localhost:3001) -> `Dashboards` (left-most panel) -> `Import`
+
+After import, you should see a dashboard like:
+![HPA Dashboard](../assets/hpa-grafana.png)
 
 
 ## How did I generate `istio-demo.yml`?

@@ -2,23 +2,12 @@
 
 This repo is composed of two demonstrations.
 1. [HPA with CPU metrics](./part1_cpu_metrics/README.md)
+    * Tutorial: [Kubernetes HPA Hands-on](https://ryo-koike.com/blog/k8s-hpa-handson)
+2. [HPA with Istio metrics (requests_per_second, 90%tile request processing duration)](./part2_istio_metrics/README.md)
+    * Tutorial: [Kubernetes Horizontal Pod Autoscaler (HPA) with Custom Metrics from Istio](https://ryo-koike.com/blog/hpa-with-istio-metrics)
 
-## Setup
+![HPA Dashboard](./assets/hpa-grafana.png)
 
-1. Deploy Istio
-```sh
-kubectl apply -f istio-demo.yml
-```
-
-2. Deploy Istio Addons
-```sh
-kubectl apply -f addons/
-```
-
-2. Deploy workloads
-```sh
-kubectl apply -f workloads/
-```
 
 ## How to create a docker image with multiple platform?
 1. Create a builder
