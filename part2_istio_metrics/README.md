@@ -9,26 +9,20 @@
 
 ## Setup
 
-1. Deploy Istio
+1. Deploy Istio, Istio addons, and our workload using Kustomize
 ```sh
-kubectl apply -f istio-demo.yml
+kubectl apply -k ./
 ```
 
-2. Deploy Istio addons
-```sh
-kubectl apply -f addons/
-```
+If you get errors that say `ensure CRDs are installed first`, run the command again.
 
-3. Deploy Prometheus Adapter (before this, make sure to install [helmfile](https://github.com/helmfile/helmfile) and run `helmfile init` to install `helm-diff` plugin):
-```sh
-helfile apply
-```
+If you get only 1 pod (e.g., READY 1/1 or READY 0/1) from `kubectl -n demo get po`, Istio injection was not successful.
+Please run `kubectl -n demo rollout restart deploy` to restart the pod.
+After this, you should get READY 2/2 from `kubectl -n demo get po`
 
-4. Deploy the workload and Ingress Gateway in namespace `demo` with Istio injection:
+2. Deploy Prometheus Adapter (before this, make sure to install [helmfile](https://github.com/helmfile/helmfile) and run `helmfile init` to install `helm-diff` plugin):
 ```sh
-kubectl apply -f demo-namespace.yml
-kubectl apply -f go-cpu-intensive.yml
-kubectl apply -f istio-gateway.yml
+helmfile sync
 ```
 
 <details>
@@ -91,6 +85,14 @@ The output should look like:
 ```
 
 </details>
+
+
+## Cleanup
+
+```sh
+helmfile destroy
+kubectl delete -k ./
+```
 
 
 ## Experiment
