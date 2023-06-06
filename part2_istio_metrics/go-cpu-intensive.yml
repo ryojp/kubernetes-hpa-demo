@@ -50,7 +50,7 @@ spec:
         kind: Deployment
         name: go-cpu-intensive
       metric:
-        name: request_duration_seconds_90tile
+        name: request_duration_seconds_90ile
       target:
         type: Value
         value: 300m

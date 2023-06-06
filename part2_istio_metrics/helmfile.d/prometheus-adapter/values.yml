@@ -30,5 +30,5 @@ rules:
         destination_workload:
           resource: "deployment"
     name:
-      as: "request_duration_seconds_90tile"
+      as: "request_duration_seconds_90ile"
     metricsQuery: 'sum(histogram_quantile(0.90, sum(irate(<<.Series>>{<<.LabelMatchers>>, reporter="destination"}[5m])) by (le,<<.GroupBy>>))) by (<<.GroupBy>>) / 1000'

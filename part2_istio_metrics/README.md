@@ -56,9 +56,9 @@ The output should look like:
 }
 ```
 
-2. `request_duration_seconds_90tile`
+2. `request_duration_seconds_90ile`
 ```sh
-kubectl get --raw /apis/custom.metrics.k8s.io/v1beta1/namespaces/demo/deployments/go-cpu-intensive/request_duration_seconds_90tile
+kubectl get --raw /apis/custom.metrics.k8s.io/v1beta1/namespaces/demo/deployments/go-cpu-intensive/request_duration_seconds_90ile
 ```
 
 The output should look like:
@@ -75,7 +75,7 @@ The output should look like:
         "name": "go-cpu-intensive",
         "apiVersion": "apps/v1"
       },
-      "metricName": "request_duration_seconds_90tile",
+      "metricName": "request_duration_seconds_90ile",
       "timestamp": "2023-06-04T02:25:15Z",
       "value": "0",
       "selector": null
