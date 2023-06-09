@@ -1,8 +1,13 @@
 # Kubernetes HPA Demo
 
-<img width="1257" alt="hpa_screenshot" src="https://github.com/ryojp/kubernetes-hpa-demo/assets/48583318/e93c6329-2850-4f2a-b760-1b6168b0c5d7">
+This repo is composed of two demonstrations.
+1. [HPA with CPU metrics](./part1_cpu_metrics/README.md)
+    * Tutorial: [Kubernetes HPA Hands-on](https://ryo-koike.com/blog/k8s-hpa-handson)
+2. [HPA with Istio metrics (requests_per_second, 90%tile request processing duration)](./part2_istio_metrics/README.md)
+    * Tutorial: [Kubernetes Horizontal Pod Autoscaler (HPA) with Custom Metrics from Istio](https://ryo-koike.com/blog/hpa-with-istio-metrics)
 
-Tutorial available at https://ryo-koike.com/blog/k8s-hpa-handson
+![HPA Dashboard](./assets/hpa-grafana.png)
+
 
 ## How to create a docker image with multiple platform?
 1. Create a builder
