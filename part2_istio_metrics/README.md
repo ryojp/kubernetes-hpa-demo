@@ -9,21 +9,20 @@
 
 ## Setup
 
-1. Deploy Istio, Istio addons, and our workload using Kustomize
+1. Deploy Istio, Prometheus Adapter, kube-state-metrics using helmfile (before this, make sure to install [helmfile](https://github.com/helmfile/helmfile) and run `helmfile init` to install `helm-diff` plugin):
+```sh
+helmfile sync
+```
+
+2. Deploy Istio addons and our workload using Kustomize
 ```sh
 kubectl apply -k ./
 ```
 
-If you get errors that say `ensure CRDs are installed first`, run the command again.
-
-If you get only 1 pod (e.g., READY 1/1 or READY 0/1) from `kubectl -n demo get po`, Istio injection was not successful.
+In case you get only 1 pod (e.g., READY 1/1 or READY 0/1) from `kubectl -n demo get po`, Istio injection was not successful.
 Please run `kubectl -n demo rollout restart deploy` to restart the pod.
 After this, you should get READY 2/2 from `kubectl -n demo get po`
 
-2. Deploy Prometheus Adapter (before this, make sure to install [helmfile](https://github.com/helmfile/helmfile) and run `helmfile init` to install `helm-diff` plugin):
-```sh
-helmfile sync
-```
 
 <details>
 <summary> Verify custom metrics can be fetched from Kubernetes API </summary>
@@ -90,8 +89,9 @@ The output should look like:
 ## Cleanup
 
 ```sh
-helmfile destroy
 kubectl delete -k ./
+helmfile destroy
+kubectl delete ns monitoring istio-system
 ```
 
 
