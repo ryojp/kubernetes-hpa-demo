@@ -1,0 +1,2 @@
+service:
+  type: LoadBalancer # default is LoadBalancer, so no change here

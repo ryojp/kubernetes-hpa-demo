@@ -1,0 +1,2 @@
+pilot:
+  traceSampling: 0.1 # sampling rate for tracing
